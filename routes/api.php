@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordCtl;
+use App\Http\Controllers\ForgetPasswordCtl;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +26,9 @@ use App\Http\Controllers\ResetPasswordCtl;
 // Route::post('register', [AuthController::class, 'register']);
 //dc
 
-Route::get('login', [AuthController::class, 'login'])->name('login');
-Route::post('login',  [ 'as' => 'login', 'uses' => 'AuthController@login']);
+Route::post('login', [AuthController::class, 'login']);
+// Route::get('login', [AuthController::class, 'login'])->name('login');
+// Route::post('login',  [ 'as' => 'login', 'uses' => 'AuthController@login']);
 Route::post('register', [AuthController::class, 'register'])->name('register');
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -36,9 +39,11 @@ Route::middleware('auth:sanctum')->group(function () {
         return auth()->user();
     })->name('me');
 
-    Route::post('change_password', [AuthController::class, 'register'])->name('register');
-    Route::post('reset_password', [ResetPasswordCtl::class, 'resetpassword'])->name('reset_password');
+   // Route::post('change_password', [AuthController::class, 'register'])->name('register');
 });
+Route::post('reset_password', [ForgetPasswordCtl::class, 'resetpassword'])->name('reset_password');
+
+Route::post('forget_password', [ForgetPasswordCtl::class, 'forgetpassword'])->name('forget_password');
 
 
 
